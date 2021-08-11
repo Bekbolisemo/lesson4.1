@@ -3,13 +3,13 @@ package com.company;
 import java.util.Random;
 
 public class Main {
-    public static int bossHealth = 1000;
-    public static int bossDamage = 50;
+    public static int bossHealth = 1200;
+    public static int bossDamage = 60;
     public static String bossDefence = "";
-    public static int[] heroesHealth = {400, 150, 200,250};
-    public static int[] heroesDamage = {30, 20, 10,0};
+    public static int[] heroesHealth = {400, 150, 200,250,250,250,130};
+    public static int[] heroesDamage = {30, 20, 10,0,20,20,16};
     public static String[] heroesAttackType = {
-            "Warrior", "Magical", "Kinetic","Medic"};
+            "Warrior", "Magical", "Kinetic","Medic","Thor","Berserk","Lucky"};
 
     public static int healerHealing = 50;
 
@@ -25,7 +25,10 @@ public class Main {
             chooseBossDefence();
             bossHits();
         }
+        berserkActions();
         heroesHit();
+        thorsActions();
+        luckysActions();
         heals();
         printStatistics();
     }
@@ -44,6 +47,79 @@ public class Main {
         }
 
     }
+    public static void thorsActions(){
+        Random random = new Random();
+        boolean r1 = random.nextBoolean();
+        if (heroesHealth[4] > 0){
+            if (!(r1)) {
+                bossDamage = 60;
+            } else if (r1) {
+                bossDamage = 0;
+                System.out.println("Тор оглушил босса");
+            }
+        }
+    }
+    public static void luckysActions(){
+        Random random = new Random();
+        boolean r1 = random.nextBoolean();
+        if (heroesHealth[6] >0 ){
+            if (!(r1)){
+                heroesHealth[6] = heroesHealth[6] + bossDamage;
+                if ( heroesHealth[6] > 130){
+                    heroesHealth[6] = heroesHealth[6] - bossDamage;
+                }
+                   System.out.println("Lucky укланился");
+            } else if (r1){
+                heroesHealth[6] = heroesHealth[6];
+            }
+        }
+
+
+    }
+    public static void berserkActions(){
+        Random randoms = new Random();
+        int ranDamage = randoms.nextInt(15)+1;
+        Random random = new Random();
+        int ran = random.nextInt(3)+1;
+
+        if (heroesHealth[5] >0 && bossHealth > 0){
+            switch (ran){
+                case 1:
+                    heroesDamage[5] = (heroesDamage[5] + bossDamage) - ranDamage;
+                    System.out.println("Берсерк наносит крит.урон");
+                    System.out.println("потерии при увелечении удара Берсерка- "+ "[ " + ranDamage + " ]" );
+
+                    break;
+                case 2:
+                    bossDamage = 60;
+                    break;
+                case 3:
+                    bossDamage = 60;
+                    break;
+            }
+        }
+
+    }
+   /* public static void berserkBum(){
+        Random random = new Random();
+        int ran = random.nextInt(4)+1;
+        switch (ran){
+            case 1:
+                bossDamage = 20;
+                bossHealth = (heroesDamage[5]  + bossDamage) - bossHealth;
+                System.out.println("Берсерк нанес крит.урон");
+                break;
+            case 2:
+                bossDamage = 60;
+                break;
+                case 3:
+                bossDamage = 60;
+                break;
+                case 4:
+                bossDamage = 60;
+                break;
+        }
+    }*/
 
     public static boolean isGameFinished() {
         if (bossHealth <= 0) {
@@ -68,6 +144,7 @@ public class Main {
         return allHeroesDead;
     }
 
+
     public static void heroesHit() {
         for (int i = 0; i < heroesDamage.length; i++) {
             if (heroesHealth[i] > 0 && bossHealth > 0) {
@@ -88,6 +165,7 @@ public class Main {
                         bossHealth = bossHealth - heroesDamage[i];
                     }
                 }
+                heroesDamage[5] = +20;
             }
         }
     }
@@ -114,5 +192,8 @@ public class Main {
                     + heroesDamage[i] + "]");
         }
         System.out.println("++++++++++++++");
+
     }
+
+
 }
