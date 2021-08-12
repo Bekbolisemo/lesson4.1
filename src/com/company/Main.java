@@ -6,10 +6,10 @@ public class Main {
     public static int bossHealth = 1200;
     public static int bossDamage = 60;
     public static String bossDefence = "";
-    public static int[] heroesHealth = {400, 150, 200,250,250,250,130};
-    public static int[] heroesDamage = {30, 20, 10,0,20,20,16};
+    public static int[] heroesHealth = {400, 150, 200,250,250,130,250};
+    public static int[] heroesDamage = {30, 20, 10,20,20,16,0};
     public static String[] heroesAttackType = {
-            "Warrior", "Magical", "Kinetic","Medic","Thor","Berserk","Lucky"};
+            "Warrior", "Magical", "Kinetic","Thor","Berserk","Lucky","Medic"};
 
     public static int healerHealing = 50;
 
@@ -40,8 +40,8 @@ public class Main {
         System.out.println("Boss choose: " + bossDefence);
     }
     public static void heals(){
-        for (int i = 0; i < 3 ; i++) {
-            if (heroesHealth[i] < 100 && heroesHealth[i] > 0 && heroesHealth[3] > 0) {
+        for (int i = 0; i < 5 ; i++) {
+            if (heroesHealth[i] < 100 && heroesHealth[i] > 0 && heroesHealth[5] > 0) {
                 heroesHealth[i] = heroesHealth[i] + healerHealing;
             }
         }
@@ -50,7 +50,7 @@ public class Main {
     public static void thorsActions(){
         Random random = new Random();
         boolean r1 = random.nextBoolean();
-        if (heroesHealth[4] > 0){
+        if (heroesHealth[3] > 0){
             if (!(r1)) {
                 bossDamage = 60;
             } else if (r1) {
@@ -62,15 +62,15 @@ public class Main {
     public static void luckysActions(){
         Random random = new Random();
         boolean r1 = random.nextBoolean();
-        if (heroesHealth[6] >0 ){
+        if (heroesHealth[5] >0 ){
             if (!(r1)){
-                heroesHealth[6] = heroesHealth[6] + bossDamage;
-                if ( heroesHealth[6] > 130){
-                    heroesHealth[6] = heroesHealth[6] - bossDamage;
+                heroesHealth[5] = heroesHealth[5] + bossDamage;
+                if ( heroesHealth[5] > 130){
+                    heroesHealth[5] = heroesHealth[5] - bossDamage;
                 }
                    System.out.println("Lucky укланился");
             } else if (r1){
-                heroesHealth[6] = heroesHealth[6];
+                heroesHealth[5] = heroesHealth[5];
             }
         }
 
@@ -82,10 +82,10 @@ public class Main {
         Random random = new Random();
         int ran = random.nextInt(3)+1;
 
-        if (heroesHealth[5] >0 && bossHealth > 0){
+        if (heroesHealth[4] >0 && bossHealth > 0){
             switch (ran){
                 case 1:
-                    heroesDamage[5] = (heroesDamage[5] + bossDamage) - ranDamage;
+                    heroesDamage[4] = (heroesDamage[4] + bossDamage) - ranDamage;
                     System.out.println("Берсерк наносит крит.урон");
                     System.out.println("потерии при увелечении удара Берсерка- "+ "[ " + ranDamage + " ]" );
 
@@ -165,7 +165,7 @@ public class Main {
                         bossHealth = bossHealth - heroesDamage[i];
                     }
                 }
-                heroesDamage[5] = +20;
+                heroesDamage[4] = 20;
             }
         }
     }
@@ -180,6 +180,7 @@ public class Main {
                 }
             }
         }
+
     }
 
     public static void printStatistics() {
